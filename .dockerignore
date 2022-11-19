@@ -1,0 +1,7 @@
+**/.venv
+**/.vscode
+**/dist
+**/__pycache__
+**/logs
+.git
+**/node_modules
