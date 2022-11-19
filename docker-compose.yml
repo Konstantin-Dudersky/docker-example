@@ -29,6 +29,7 @@ services:
       - REGISTRY_TITLE=My Private Docker Registry
       - REGISTRY_URL=http://target:5000
       - SINGLE_REGISTRY=true
+      - DELETE_IMAGES=true
     ports:
       - "8000:80"
     profiles:

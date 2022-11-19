@@ -1,3 +1,7 @@
+# docker-example
+
+Пример организации проекта с docker-образами.
+
 ## Рабочий процесс
 
 2 машины:
@@ -97,7 +101,7 @@ docker buildx rm builder \
 Запуск сборки:
 
 ```sh
-docker buildx bake --builder builder -f docker-bake.hcl --push service_group 
+docker buildx bake --builder builder -f docker-bake.hcl --push service_group
 ```
 
 При сборке образы загружаются в локальный репозиторий `dev:5000`. Возможна мультиплатформенная сборка.

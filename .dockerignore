@@ -1,6 +1,5 @@
 **/.venv
 **/.vscode
-**/dist
 **/__pycache__
 **/logs
 .git
