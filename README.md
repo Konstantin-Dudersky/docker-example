@@ -6,15 +6,14 @@
 
 2 машины:
 
-- ==dev== - машина разработчика
+- ==localhost== - машина разработчика
 - ==target== - целевая машина
 
 Чтобы не задавать ip-адреса в скриптах, пропишем домены в файле /etc/hosts.
 
-На ==dev==:
+На ==localhost==:
 
 ```
-127.0.0.1     dev
 __IP__        target
 ```
 
@@ -26,13 +25,13 @@ __IP__        target
 
 Порядок работы:
 
-- образы собираются на машине ==dev== и сохраняются в репозитории на этой же машине. Образы собираются с тегом `dev:5000`.
+- образы собираются на машине ==localhost== и сохраняются в репозитории на этой же машине. Образы собираются с тегом `localhost:5000`.
 - (опционально) образы можно сохранить в файлы tar или загрузить из tar
-- добавляем к образам тег - вместо `dev:5000` заменяем `target:5000`
+- добавляем к образам тег - вместо `localhost:5000` заменяем `target:5000`
 - перемещаем образы в репозиторий на машине ==target==.
 - при запуске `docker compose` на целевой машине скачиваюся образы из репозитория `target:5000`.
 
-## Запуск локального репозитория образов ==dev==
+## Запуск локального репозитория образов ==localhost==
 
 Развернем локальный репозиторий образов вместе с веб-интерфейсом.
 
@@ -47,13 +46,13 @@ cd ~/snap \
 
 Настроим веб-интерфейс для работы через порт 8000.
 
-- в файле `nano ~/snap/docker-registry-ui/examples/ui-as-standalone/registry-config/simple.yml` поменять заголовок:
+- в файле `~/snap/docker-registry-ui/examples/ui-as-standalone/registry-config/simple.yml` поменять заголовок:
 
 ```yml
-Access-Control-Allow-Origin: ['*']
+Access-Control-Allow-Origin: ["*"]
 ```
 
-- поменять порт для сервиса `ui` в файле `nano ~/snap/docker-registry-ui/examples/ui-as-standalone/simple.yml`
+- поменять порт для сервиса `ui` в файле `~/snap/docker-registry-ui/examples/ui-as-standalone/simple.yml`
 
 ```yml
 ports:
@@ -79,7 +78,7 @@ cd ~/snap/docker-registry-ui/examples/ui-as-standalone \
 
 ```sh
 test -f ~/.buildkitd.toml || echo \
-'[registry."dev:5000"]
+'[registry."localhost:5000"]
 http = true
 insecure = true' \
 > ~/.buildkitd.toml
@@ -104,7 +103,7 @@ docker buildx rm builder \
 docker buildx bake --builder builder -f docker-bake.hcl --push service_group
 ```
 
-При сборке образы загружаются в локальный репозиторий `dev:5000`. Возможна мультиплатформенная сборка.
+При сборке образы загружаются в локальный репозиторий `localhost:5000`. Возможна мультиплатформенная сборка.
 
 ## Запуск репозитория образов на целевой машине ==target==
 
@@ -145,9 +144,5 @@ docker compose --profile server up -d
 ```sh
 docker compose --profile server down
 ```
-
-
-
-
 
 - Сохранение образов из локального репозитория в tar-файлы.

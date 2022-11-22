@@ -8,7 +8,7 @@ PYTHON_VER = "3.11.0"
 POETRY_VER = "1.2.2"
 NGINX_VER = "1.23"
 
-REPO = "dev:5000"
+REPO = "localhost:5000"
 
 target "webapp" {
     dockerfile = "webapp/Dockerfile"

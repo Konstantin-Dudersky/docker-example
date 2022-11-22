@@ -108,7 +108,7 @@ class DockerComposeProfile:
 if __name__ == "__main__":
     log.addHandler(logging.StreamHandler())
     DockerComposeProfile(profile="server",).copy_images_between_repos(
-        repo_from="dev:5000",
+        repo_from="localhost:5000",
         repo_to="target:5000",
         arch="linux/arm64",
     )
